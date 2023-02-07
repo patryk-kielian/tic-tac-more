@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "parcel": "^2.6.2"
+  },
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "main": "script.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "author": "Patryk",
+  "license": "ISC",
+  "description": ""
+}
