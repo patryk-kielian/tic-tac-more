@@ -1,7 +1,5 @@
 "use strict";
 
-import _ from "lodash";
-
 document.querySelector("#copyright-year").innerText = new Date().getFullYear();
 
 const container = document.querySelector(".container");
