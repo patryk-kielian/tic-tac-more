@@ -4,13 +4,13 @@
     "parcel": "^2.6.2",
     "tsparticles": "^2.8.0"
   },
-  "name": "tic-tac-toe",
+  "name": "tic-tac-more",
   "version": "1.0.0",
-  "main": "script.js",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "author": "Patryk",
-  "license": "ISC",
+  "license": "GNU Affero General Public License v3.0 ",
   "description": ""
 }
