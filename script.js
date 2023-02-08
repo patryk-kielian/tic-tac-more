@@ -238,6 +238,7 @@ const clearBoard = function () {
   p1fields = [];
   p2fields = [];
   fieldSizes = {};
+  turnCount = 0;
   controls_p2.classList.remove("active");
   controls_p1.classList.add("active");
   messageStart.classList.remove("hidden");

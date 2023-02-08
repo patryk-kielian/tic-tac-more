@@ -9,6 +9,8 @@
   --blue: #21209c;
 }
 
+/* bruuuuh */
+
 * {
   margin: 0;
   padding: 0;
@@ -18,17 +20,17 @@
 html {
   font-family: "Martian Mono", monospace;
   font-weight: 400;
+  font-size: 62.5%;
 }
 
 body {
   background-color: var(--black);
   height: 100vh;
-  /* overflow: hidden; */
   overflow: hidden;
 }
 
 main {
-  margin: 16px;
+  margin: 1.6rem;
 }
 
 #tsparticles {
@@ -41,7 +43,7 @@ main {
   right: 0;
   position: absolute;
   margin: 0 auto;
-  font-size: 48px;
+  font-size: 4.8rem;
   text-align: center;
   color: var(--white);
 }
@@ -57,7 +59,7 @@ main {
 }
 
 #start {
-  font-size: 48px;
+  font-size: 4.8rem;
 }
 
 #popup {
@@ -65,9 +67,9 @@ main {
   margin: 0 auto;
   color: var(--white);
   background-color: var(--red75);
-  border-radius: 50px;
-  padding: 20px;
-  font-size: 36px;
+  border-radius: 5rem;
+  padding: 2rem;
+  font-size: 3.6rem;
   line-height: 140%;
   z-index: 100;
   transition: all 500ms ease-in-out;
@@ -78,8 +80,8 @@ main {
   left: 0;
   right: 0;
   margin: 0 auto;
-  font-size: 20px;
-  bottom: 60px;
+  font-size: 2rem;
+  bottom: 6rem;
 }
 
 .hidden {
@@ -99,15 +101,15 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 20px;
+  grid-gap: 2rem;
 
-  width: 600px;
-  height: 600px;
-  margin-top: 200px;
+  width: 60rem;
+  height: 60rem;
+  margin-top: 20rem;
 }
 
 .controls {
-  width: 250px;
+  width: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,20 +117,20 @@ main {
 
 section h3 {
   color: var(--white);
-  font-size: 36px;
-  margin-bottom: 20px;
+  font-size: 3.6rem;
+  margin-bottom: 2rem;
 }
 
 .sizes {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 20px 0;
+  padding: 2rem 2rem 0;
 }
 
 .sizes.active {
   background-color: var(--white);
-  border-radius: 50px;
+  border-radius: 5rem;
   animation-name: color;
   animation-duration: 4s;
   animation-iteration-count: infinite;
@@ -151,7 +153,7 @@ section h3 {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  margin-bottom: 16px;
+  margin-bottom: 1.6rem;
   cursor: pointer;
 }
 
@@ -166,34 +168,34 @@ section h3 {
 }
 
 .size1 {
-  width: 68px;
-  height: 68px;
-  font-size: 46px;
+  width: 6.8rem;
+  height: 6.8rem;
+  font-size: 4.6rem;
 }
 .size2 {
-  width: 88px;
-  height: 88px;
-  font-size: 56px;
+  width: 8.8rem;
+  height: 8.8rem;
+  font-size: 5.6rem;
 }
 .size3 {
-  width: 108px;
-  height: 108px;
-  font-size: 66px;
+  width: 10.8rem;
+  height: 10.8rem;
+  font-size: 6.6rem;
 }
 .size4 {
-  width: 128px;
-  height: 128px;
-  font-size: 76px;
+  width: 12.8rem;
+  height: 12.8rem;
+  font-size: 7.6rem;
 }
 .size5 {
-  width: 148px;
-  height: 148px;
-  font-size: 86px;
+  width: 14.8rem;
+  height: 14.8rem;
+  font-size: 8.6rem;
 }
 .size6 {
-  width: 168px;
-  height: 168px;
-  font-size: 96px;
+  width: 16.8rem;
+  height: 16.8rem;
+  font-size: 9.6rem;
 }
 
 .nonclick {
@@ -203,7 +205,7 @@ section h3 {
 
 .field {
   display: flex;
-  border-radius: 40px;
+  border-radius: 4rem;
   background-color: var(--white);
   align-items: center;
   justify-content: center;
@@ -212,4 +214,40 @@ section h3 {
 
 .transparent {
   opacity: 0;
+}
+
+@media only screen and (max-width: 1440px), screen and (max-height: 900px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media only screen and (max-width: 1000px), screen and (max-height: 740px) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media only screen and (max-width: 800px), screen and (max-height: 600px) {
+  html {
+    font-size: 32%;
+  }
+}
+
+@media only screen and (max-width: 600px), screen and (max-height: 480px) {
+  html {
+    font-size: 24%;
+  }
+}
+
+@media only screen and (max-width: 480px), screen and (max-height: 360px) {
+  html {
+    font-size: 20%;
+  }
+}
+
+@media only screen and (max-width: 360px), screen and (max-height: 300px) {
+  html {
+    font-size: 16%;
+  }
 }
