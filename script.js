@@ -10,12 +10,14 @@ const messageStart = document.querySelector("#start");
 const messagePopup = document.querySelector("#popup");
 const controls_p1 = document.querySelector("#p1");
 const controls_p2 = document.querySelector("#p2");
+const confettiDiv = document.querySelector("#tsparticles");
 
 let activePlayer;
 let chosenSize;
 let p1fields = [];
 let p2fields = [];
 let fieldSizes = {};
+let turnCount = 0;
 
 const winningConditions = [
   ["0", "1", "2"],
@@ -114,7 +116,9 @@ const place = function (e) {
       let index = p2fields.indexOf(e.target.id.slice(-1));
       p2fields.splice(index, 1);
     }
+    turnCount++;
     if (p1fields.length >= 3) checkIfWon(1, p1fields);
+    checkIfDraw();
     activePlayer = 2;
     controls_p1.classList.remove("active");
     controls_p2.classList.add("active");
@@ -131,7 +135,9 @@ const place = function (e) {
       let index = p1fields.indexOf(e.target.id.slice(-1));
       p1fields.splice(index, 1);
     }
+    turnCount++;
     if (p2fields.length >= 3) checkIfWon(2, p2fields);
+    checkIfDraw();
     activePlayer = 1;
     controls_p2.classList.remove("active");
     controls_p1.classList.add("active");
@@ -142,10 +148,21 @@ const place = function (e) {
 const checkIfWon = function (playerNr, playerFields) {
   for (let i = 0; i < winningConditions.length; i++) {
     if (winningConditions[i].every((nr) => playerFields.includes(nr))) {
+      confettiDiv.classList.remove("hidden");
+      confetti();
       popup(`Congratulations! Player ${playerNr} has won!`, 5000);
       gameboard.classList.add("hidden");
       setTimeout(clearBoard, 5000);
     }
+  }
+};
+
+const checkIfDraw = function () {
+  console.log(turnCount);
+  if (turnCount >= 12) {
+    popup(`The game is a draw. No moves possible!`, 5000);
+    gameboard.classList.add("hidden");
+    setTimeout(clearBoard, 5000);
   }
 };
 
@@ -157,6 +174,59 @@ const popup = function (text, timeout = 2500) {
     messagePopup.parentNode.classList.add("hidden");
     messagePopup.classList.add("hidden");
   }, timeout);
+};
+
+const confetti = function () {
+  tsParticles.load("tsparticles", {
+    particles: {
+      color: {
+        value: ["#c9232e", "#908fcd", "#fdb827"],
+      },
+    },
+    emitters: [
+      {
+        startCount: 200,
+        rate: {
+          delay: 0.1,
+          quantity: 10,
+        },
+        life: {
+          duration: 5,
+          count: 1,
+        },
+        position: {
+          x: 25,
+          y: 20,
+        },
+        particles: {
+          move: {
+            direction: "top-right",
+          },
+        },
+      },
+      {
+        startCount: 200,
+        rate: {
+          delay: 0.1,
+          quantity: 10,
+        },
+        life: {
+          duration: 5,
+          count: 1,
+        },
+        position: {
+          x: 75,
+          y: 20,
+        },
+        particles: {
+          move: {
+            direction: "top-left",
+          },
+        },
+      },
+    ],
+    preset: "confetti",
+  });
 };
 
 const clearBoard = function () {
@@ -172,4 +242,5 @@ const clearBoard = function () {
   controls_p1.classList.add("active");
   messageStart.classList.remove("hidden");
   messageStart.parentNode.classList.remove("hidden");
+  confettiDiv.classList.add("hidden");
 };
