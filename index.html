@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Kółko-krzyżyk</title>
+    <title>tic-tac-more</title>
     <link rel="stylesheet" href="./style.css" />
     <script type="module" defer src="./script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,17 +18,24 @@
     <main>
       <section class="title">
         <h1>tic-tac-more</h1>
-        <div class="message">
-          <h2>click anywhere to start the game</h2>
+        <div class="messages">
+          <h2 id="start">click anywhere to start the game</h2>
+          <h2 class="hidden" id="popup"></h2>
         </div>
+        <p class="copyright">
+          Patryk Kielian © <span id="copyright-year">2023 </span> wszelkie prawa
+          zastrzeżone
+        </p>
       </section>
-      <section class="gameboard">
-        <section class="controls transparent" id="p1">
+      <section class="gameboard hidden">
+        <section class="controls">
           <h3>player 1</h3>
+          <div class="sizes" id="p1"></div>
         </section>
-        <section class="container transparent"></section>
-        <section class="controls transparent" id="p2">
+        <section class="container"></section>
+        <section class="controls">
           <h3>player 2</h3>
+          <div class="sizes" id="p2"></div>
         </section>
       </section>
     </main>

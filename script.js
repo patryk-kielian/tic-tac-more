@@ -2,10 +2,14 @@
 
 import _ from "lodash";
 
+document.querySelector("#copyright-year").innerText = new Date().getFullYear();
+
 const container = document.querySelector(".container");
-const message = document.querySelector(".message");
-const controls_p1 = document.querySelector("section#p1");
-const controls_p2 = document.querySelector("section#p2");
+const gameboard = document.querySelector(".gameboard");
+const messageStart = document.querySelector("#start");
+const messagePopup = document.querySelector("#popup");
+const controls_p1 = document.querySelector("#p1");
+const controls_p2 = document.querySelector("#p2");
 
 let activePlayer;
 let chosenSize;
@@ -29,7 +33,8 @@ const drawBoard = function () {
   let control_p1 = [];
   let control_p2 = [];
   if (activePlayer) return;
-  message.classList.add("hidden");
+  messageStart.classList.add("hidden");
+  messageStart.parentNode.classList.add("hidden");
   for (let i = 0; i <= 8; i++) {
     container.insertAdjacentHTML(
       "beforeend",
@@ -37,7 +42,6 @@ const drawBoard = function () {
     );
     field[i] = document.querySelector(`#field${i}`);
     field[i].addEventListener("click", place);
-    // i % 3 == 0 ? container.insertAdjacentHTML("beforeend", `<br>`) : "";
   }
 
   for (let i = 1; i <= 6; i++) {
@@ -55,11 +59,9 @@ const drawBoard = function () {
     control_p2[i].addEventListener("click", choose);
   }
 
+  gameboard.classList.remove("hidden");
   activePlayer = 1;
-  console.log(field);
-  container.classList.remove("transparent");
-  controls_p1.classList.remove("transparent");
-  controls_p2.classList.remove("transparent");
+  controls_p1.classList.add("active");
 };
 
 ["mousedown", "keydown"].forEach((event) =>
@@ -67,14 +69,13 @@ const drawBoard = function () {
 );
 
 const checkIfAvailable = function (e) {
-  // console.log(Number(e.target.id.slice(-1)));
-  // console.log(e);
-  // console.log(fieldSizes[Number(e.target.id.slice(-1))]);
   if (e.target.classList.contains("size")) {
     if (chosenSize > fieldSizes[Number(e.target.parentNode.id.slice(-1))]) {
       return true;
-    } else console.log(`A higher number has already been placed here`);
-    return false;
+    } else {
+      popup(`A higher or equal number has already been placed here`);
+      return false;
+    }
   }
 
   if (
@@ -82,17 +83,17 @@ const checkIfAvailable = function (e) {
     !fieldSizes[Number(e.target.id.slice(-1))]
   ) {
     return true;
-  } else console.log(`A higher number has already been placed here`);
-  return false;
+  } else {
+    popup(`A higher or equal number has already been placed here`);
+    return false;
+  }
 };
 
 const choose = function (e) {
   if (activePlayer === Number(e.target.className.slice(-1))) {
     chosenSize = Number(e.target.innerHTML);
   } else {
-    console.log(
-      `Player ${e.target.className.slice(-1)} is not the active player!`
-    );
+    popup(`Player ${e.target.className.slice(-1)} is not the active player!`);
   }
 };
 
@@ -106,8 +107,6 @@ const place = function (e) {
     e.target.innerHTML = `<div class="size nonclick size${chosenSize} p1" id="p1_size${chosenSize}">${chosenSize}</div>`;
     p1fields.push(e.target.id.slice(-1));
     fieldSizes[Number(e.target.id.slice(-1))] = chosenSize;
-    console.log("p1", p1fields);
-    // console.log(fieldSizes);
     document
       .querySelector(`.controls #p${activePlayer}_size${chosenSize}`)
       .classList.add("hidden");
@@ -117,13 +116,13 @@ const place = function (e) {
     }
     if (p1fields.length >= 3) checkIfWon(1, p1fields);
     activePlayer = 2;
+    controls_p1.classList.remove("active");
+    controls_p2.classList.add("active");
     chosenSize = null;
   } else if (activePlayer === 2 && checkIfAvailable(e)) {
     e.target.innerHTML = `<div class="size nonclick size${chosenSize} p2" id="p2_size${chosenSize}">${chosenSize}</div>`;
     p2fields.push(e.target.id.slice(-1));
     fieldSizes[Number(e.target.id.slice(-1))] = chosenSize;
-    console.log("p2", p2fields);
-    // console.log(fieldSizes);
     document
       .querySelector(`.controls #p${activePlayer}_size${chosenSize}`)
       .classList.add("hidden");
@@ -134,19 +133,30 @@ const place = function (e) {
     }
     if (p2fields.length >= 3) checkIfWon(2, p2fields);
     activePlayer = 1;
+    controls_p2.classList.remove("active");
+    controls_p1.classList.add("active");
     chosenSize = null;
   }
 };
 
 const checkIfWon = function (playerNr, playerFields) {
-  console.log(playerFields);
   for (let i = 0; i < winningConditions.length; i++) {
     if (winningConditions[i].every((nr) => playerFields.includes(nr))) {
-      console.log(`Congratulations. Player ${playerNr} has won!`);
-      container.classList.add("transparent");
-      setTimeout(clearBoard, 2000);
+      popup(`Congratulations! Player ${playerNr} has won!`, 5000);
+      gameboard.classList.add("hidden");
+      setTimeout(clearBoard, 5000);
     }
   }
+};
+
+const popup = function (text, timeout = 2500) {
+  messagePopup.parentNode.classList.remove("hidden");
+  messagePopup.classList.remove("hidden");
+  messagePopup.innerHTML = `${text}`;
+  setTimeout(() => {
+    messagePopup.parentNode.classList.add("hidden");
+    messagePopup.classList.add("hidden");
+  }, timeout);
 };
 
 const clearBoard = function () {
@@ -158,4 +168,8 @@ const clearBoard = function () {
   p1fields = [];
   p2fields = [];
   fieldSizes = {};
+  controls_p2.classList.remove("active");
+  controls_p1.classList.add("active");
+  messageStart.classList.remove("hidden");
+  messageStart.parentNode.classList.remove("hidden");
 };
